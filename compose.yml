@@ -1,0 +1,24 @@
+# Docker Compose file to run carnap.ucalgary.ca
+
+# name containers irrespective of who/where they are started from
+
+name: carnap 
+
+services:
+  carnap:
+    image: rzach/carnap:latest # pulls image from Docker Hub
+    env_file: .env
+    volumes:
+      - "carnap_data:/data"
+    ports:
+      - "80:3000"
+
+  postgres:
+    image: postgres:13
+    env_file: .env-postgres
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+
+volumes:
+  carnap_data:
+  postgres_data:
